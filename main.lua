@@ -19,3 +19,14 @@ function love.load()
   player2.speed = 2
   
 end
+
+
+
+function love.draw()
+  
+  love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
+  love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
+  
+  love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
+  
+end
