@@ -155,7 +155,13 @@ function reset(playerPoints)
   ball.x = love.graphics.getWidth() / 2
   ball.y = love.graphics.getHeight() / 2
   ball.radius = 20
-  ball.right = false
+  
+  if playerPoints == "P1" then
+    ball.right = false
+  else
+    ball.right = true
+  end
+  
   ball.up = false
   ball.speed = 2
   
