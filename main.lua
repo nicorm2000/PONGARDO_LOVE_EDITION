@@ -10,6 +10,10 @@ function love.load()
   
   font = love.graphics.newFont(70)
   
+  paddleSound = love.audio.newSource("paddleHit.wav", "static")
+  
+  scorePoint = love.audio.newSource("pointScore.mp3", "static")
+  
 end
 
 function love.update(dt)
@@ -69,6 +73,7 @@ function ballMovement(ball)
   and (ball.x) <= (player1.x + player1.width) 
   and (ball.y - ball.radius) <= (player1.y + player1.height) 
   and (ball.y - ball.radius) >= (player1.y) then
+    love.audio.play(paddleSound)
     ball.up = false
   end
   
@@ -77,6 +82,7 @@ function ballMovement(ball)
   and (ball.y + ball.radius) <= player1.y 
   and (ball.y + ball.radius) >= (player1.y + player1.height) 
   then
+    love.audio.play(paddleSound)
     ball.up = true
   end
   
@@ -85,6 +91,7 @@ function ballMovement(ball)
   and (ball.y - ball.radius) <= (player2.y + player2.height) 
   and (ball.y - ball.radius) >= player2.y 
   then
+    love.audio.play(paddleSound)
     ball.up = false
   end
   
@@ -93,6 +100,7 @@ function ballMovement(ball)
   and (ball.y + ball.radius) <= player2.y 
   and (ball.y + ball.radius) >= (player2.y + player2.height) 
   then
+    love.audio.play(paddleSound)
     ball.up = true
   end
   
@@ -101,6 +109,7 @@ function ballMovement(ball)
   and ball.y >= player1.y
   and ball.y <= player1.y + player1.height 
   then
+    love.audio.play(paddleSound)
     ball.right = true
     ball.speed = ball.speed + 0.5
   end
@@ -110,17 +119,20 @@ function ballMovement(ball)
   and ball.y >= player2.y
   and ball.y <= player2.y + player2.height 
   then
+    love.audio.play(paddleSound)
     ball.right = false
     ball.speed = ball.speed + 0.5
   end
   
   if (ball.x + ball.radius) >= love.graphics.getWidth() then
     reset("P1")
+    love.audio.play(scorePoint)
     scorePlayer1 = scorePlayer1 + 1
   end
   
   if (ball.x - ball.radius) <= 0 then
     reset("P2")
+    love.audio.play(scorePoint)
     scorePlayer2 = scorePlayer2 + 1
   end
   
