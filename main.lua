@@ -25,6 +25,10 @@ function love.draw()
   love.graphics.setFont(font)
   
   love.graphics.setColor(255, 255, 255)
+  
+  love.graphics.print(scorePlayer1, (love.graphics.getWidth() / 2) - 250, 50)
+  love.graphics.print(scorePlayer2, (love.graphics.getWidth() / 2) + 150, 50)
+  
   love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
   love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
   
@@ -112,10 +116,12 @@ function ballMovement(ball)
   
   if (ball.x + ball.radius) >= love.graphics.getWidth() then
     reset("P1")
+    scorePlayer1 = scorePlayer1 + 1
   end
   
   if (ball.x - ball.radius) <= 0 then
     reset("P2")
+    scorePlayer2 = scorePlayer2 + 1
   end
   
   if (ball.y + ball.radius) >= love.graphics.getHeight() then
