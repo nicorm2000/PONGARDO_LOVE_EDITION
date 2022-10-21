@@ -3,7 +3,12 @@ function love.load()
   love.window.setTitle("PONGARDO LOVE EDITION")
   love.window.setMode(1600,800)
   
+  scorePlayer1 = 0
+  scorePlayer2 = 0
+  
   reset("P1")
+  
+  font = love.graphics.newFont(70)
   
 end
 
@@ -16,6 +21,8 @@ function love.update(dt)
 end
 
 function love.draw()
+  
+  love.graphics.setFont(font)
   
   love.graphics.setColor(255, 255, 255)
   love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
