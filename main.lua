@@ -49,16 +49,15 @@ function ballMovement(ball)
   end
   
   if ball.up then
-    ball.x = ball.y + ball.speed
+    ball.y = ball.y - ball.speed
   else
-    ball.x = ball.y - ball.speed
+    ball.y = ball.y + ball.speed
   end
   
-  if ball.x >= player1.x 
-  and ball.x <= (player1.x + player1.width) 
+  if (ball.x) >= (player1.x) 
+  and (ball.x) <= (player1.x + player1.width) 
   and (ball.y - ball.radius) <= (player1.y + player1.height) 
-  and (ball.y - ball.radius) >= player1.y 
-  then
+  and (ball.y - ball.radius) >= (player1.y) then
     ball.up = false
   end
   
@@ -92,7 +91,7 @@ function ballMovement(ball)
   and ball.y <= player1.y + player1.height 
   then
     ball.right = true
-    ball.speed = ball.speed + 1
+    ball.speed = ball.speed + 0.5
   end
   
   if (ball.x + ball.radius) >= player2.x 
@@ -101,7 +100,23 @@ function ballMovement(ball)
   and ball.y <= player2.y + player2.height 
   then
     ball.right = false
-    ball.speed = ball.speed + 1
+    ball.speed = ball.speed + 0.5
+  end
+  
+  if (ball.x + ball.radius) >= love.graphics.getWidth() then
+    reset("P1")
+  end
+  
+  if (ball.x - ball.radius) <= 0 then
+    reset("P2")
+  end
+  
+  if (ball.y + ball.radius) >= love.graphics.getHeight() then
+    ball.up = true
+  end
+  
+  if (ball.y - ball.radius) <= 0 then
+    ball.up = false
   end
   
 end
@@ -129,6 +144,6 @@ function reset(playerPoints)
   ball.radius = 20
   ball.right = false
   ball.up = false
-  ball.speed = 5
+  ball.speed = 2
   
 end
