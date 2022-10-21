@@ -18,6 +18,14 @@ function love.load()
   player2.height = 250
   player2.speed = 2
   
+  ball = {}
+  ball.x = love.graphics.getWidth() / 2
+  ball.y = love.graphics.getHeight() / 2
+  ball.radius = 20
+  ball.right = false
+  ball.up = false
+  ball.speed = 5
+  
 end
 
 function love.update(dt)
@@ -29,10 +37,14 @@ end
 
 function love.draw()
   
+  love.graphics.setColor(255, 255, 255)
   love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
   love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
   
   love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
+  
+  love.graphics.setColor(255, 0, 0)
+  love.graphics.circle("fill", ball.x, ball.y, ball.radius)
   
 end
 
