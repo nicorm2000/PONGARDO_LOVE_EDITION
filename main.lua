@@ -20,7 +20,12 @@ function love.load()
   
 end
 
-
+function love.update(dt)
+  
+  playerMovement(player1, "w", "s")
+  playerMovement(player2, "up", "down")
+  
+end
 
 function love.draw()
   
@@ -28,5 +33,17 @@ function love.draw()
   love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
   
   love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
+  
+end
+
+function playerMovement(player, upMovement, downMovement)
+  
+  if love.keyboard.isDown(upMovement) and player.y >= 0 then 
+    player.y = player.y - player.speed
+  end
+  
+  if love.keyboard.isDown(downMovement) and (player.y + player.height) <= love.graphics.getHeight() then 
+    player.y = player.y + player.speed
+  end
   
 end
