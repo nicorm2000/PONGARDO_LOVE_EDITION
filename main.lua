@@ -95,6 +95,15 @@ function ballMovement(ball)
     ball.speed = ball.speed + 1
   end
   
+  if (ball.x + ball.radius) >= player2.x 
+  and (ball.x + ball.radius) <= (player2.x + player1.width)
+  and ball.y >= player2.y
+  and ball.y <= player2.y + player2.height 
+  then
+    ball.right = false
+    ball.speed = ball.speed + 1
+  end
+  
 end
 
 function reset(playerPoints)
