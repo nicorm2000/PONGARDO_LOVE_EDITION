@@ -10,7 +10,7 @@ function love.load()
   
   font = love.graphics.newFont(70)
   
-  fontPause = love.graphics.newFont(15)
+  fontPause = love.graphics.newFont(50)
   
   paddleSound = love.audio.newSource("paddleHit.wav", "static")
   
@@ -33,17 +33,11 @@ end
 
 function love.draw()
   
-  if gamePause then
-    love.graphics.setFont(fontPause)
-    love.graphics.setColor(255, 255, 255)
-    love.graphics.print("Game is PAUSED, press enter to resume playing", 100, 100)
-    
-    love.graphics.setColor(105, 105, 105)
-  end
-  
   love.graphics.setFont(font)
   
   love.graphics.setColor(255, 255, 255)
+  
+  love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
   
   love.graphics.print(scorePlayer1, (love.graphics.getWidth() / 2) - 250, 50)
   love.graphics.print(scorePlayer2, (love.graphics.getWidth() / 2) + 150, 50)
@@ -54,15 +48,23 @@ function love.draw()
   
   love.graphics.setColor(255, 0, 0)
  
- love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
- 
-  love.graphics.setColor(255, 255, 255)
-  
-  love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
+  love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
   
   love.graphics.setColor(0, 255, 0)
  
   love.graphics.circle("fill", ball.x, ball.y, ball.radius)
+  
+  if gamePause then
+    love.graphics.setFont(fontPause)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 425, (love.graphics.getHeight() / 2) - 165, 850, 300)
+    love.graphics.setColor(0, 255, 255)
+    love.graphics.print("Game is PAUSED", (love.graphics.getWidth() / 2) - 215, 250)
+    love.graphics.setColor(255, 0, 255)
+    love.graphics.print("Press ENTER to resume playing", (love.graphics.getWidth() / 2) - 395, 350)
+    love.graphics.print("Press ESCAPE to EXIT", (love.graphics.getWidth() / 2) - 275, 450)
+    
+  end
   
 end
 
@@ -71,7 +73,11 @@ function love.keypressed(key, scancode, isrepeat)
   if key == "return" then
     gamePause = not gamePause
   end
-
+  
+  if key == "escape" then
+    love.event.quit()
+  end
+  
 end
 
 function playerMovement(player, upMovement, downMovement)
