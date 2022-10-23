@@ -1,5 +1,5 @@
 function love.load()
-  
+
   love.window.setTitle("PONGARDO LOVE EDITION")
   love.window.setMode(1600,800)
   
@@ -33,12 +33,17 @@ function love.draw()
   love.graphics.print(scorePlayer1, (love.graphics.getWidth() / 2) - 250, 50)
   love.graphics.print(scorePlayer2, (love.graphics.getWidth() / 2) + 150, 50)
   
+  love.graphics.setColor(0, 0, 255)
   love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
+  love.graphics.setColor(255, 0, 0)
   love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
+  
+  love.graphics.setColor(255, 255, 255)
   
   love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
   
-  love.graphics.setColor(255, 0, 0)
+  love.graphics.setColor(0, 255, 0)
+  
   love.graphics.circle("fill", ball.x, ball.y, ball.radius)
   
 end
