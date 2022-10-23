@@ -14,13 +14,18 @@ function love.load()
   
   scorePoint = love.audio.newSource("pointScore.mp3", "static")
   
+  gamePause = false
+  
 end
 
 function love.update(dt)
   
-  playerMovement(player1, "w", "s")
-  playerMovement(player2, "up", "down")
-  ballMovement(ball)
+  if not gamePause then
+    
+    playerMovement(player1, "w", "s")
+    playerMovement(player2, "up", "down")
+    ballMovement(ball)
+  end
   
 end
 
@@ -46,6 +51,14 @@ function love.draw()
   
   love.graphics.circle("fill", ball.x, ball.y, ball.radius)
   
+end
+
+function love.keypressed(key, scancode, isrepeat)
+  
+  if key == "return" then
+    gamePause = not gamePause
+  end
+
 end
 
 function playerMovement(player, upMovement, downMovement)
