@@ -10,6 +10,8 @@ function love.load()
   
   font = love.graphics.newFont(70)
   
+  fontPause = love.graphics.newFont(15)
+  
   paddleSound = love.audio.newSource("paddleHit.wav", "static")
   
   scorePoint = love.audio.newSource("pointScore.mp3", "static")
@@ -31,6 +33,14 @@ end
 
 function love.draw()
   
+  if gamePause then
+    love.graphics.setFont(fontPause)
+    love.graphics.setColor(255, 255, 255)
+    love.graphics.print("Game is PAUSED, press enter to resume playing", 100, 100)
+    
+    love.graphics.setColor(105, 105, 105)
+  end
+  
   love.graphics.setFont(font)
   
   love.graphics.setColor(255, 255, 255)
@@ -39,16 +49,19 @@ function love.draw()
   love.graphics.print(scorePlayer2, (love.graphics.getWidth() / 2) + 150, 50)
   
   love.graphics.setColor(0, 0, 255)
-  love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
-  love.graphics.setColor(255, 0, 0)
-  love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
   
+  love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
+  
+  love.graphics.setColor(255, 0, 0)
+ 
+ love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
+ 
   love.graphics.setColor(255, 255, 255)
   
   love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
   
   love.graphics.setColor(0, 255, 0)
-  
+ 
   love.graphics.circle("fill", ball.x, ball.y, ball.radius)
   
 end
