@@ -3,6 +3,8 @@ function love.load()
   love.window.setTitle("PONGARDO LOVE EDITION")
   love.window.setMode(1600,800)
   
+  gameState = "playing"
+  
   scorePlayer1 = 0
   scorePlayer2 = 0
   
@@ -18,54 +20,83 @@ function love.load()
   
   gamePause = false
   
+  gameWon = false
+  
 end
 
 function love.update(dt)
+  if gameState == "playing" then
+    if not gamePause then
+      playerMovement(player1, "w", "s")
+      playerMovement(player2, "up", "down")
+      ballMovement(ball)
+      if scorePlayer1 == 3 then
+        player1.speed = 0
+        player2.speed = 0
+        ball.speed = 0
+        gameWon = true
+      end
   
-  if not gamePause then
-    
-    playerMovement(player1, "w", "s")
-    playerMovement(player2, "up", "down")
-    ballMovement(ball)
+      if scorePlayer2 == 3 then
+        player1.speed = 0
+        player2.speed = 0
+        ball.speed = 0
+        gameWon = true
+      end
+    end
   end
-  
 end
 
 function love.draw()
+  if gameState == "playing" then
+    love.graphics.setFont(font)
   
-  love.graphics.setFont(font)
-  
-  love.graphics.setColor(255, 255, 255)
-  
-  love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
-  
-  love.graphics.print(scorePlayer1, (love.graphics.getWidth() / 2) - 250, 50)
-  love.graphics.print(scorePlayer2, (love.graphics.getWidth() / 2) + 150, 50)
-  
-  love.graphics.setColor(0, 0, 255)
-  
-  love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
-  
-  love.graphics.setColor(255, 0, 0)
- 
-  love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
-  
-  love.graphics.setColor(0, 255, 0)
- 
-  love.graphics.circle("fill", ball.x, ball.y, ball.radius)
-  
-  if gamePause then
-    love.graphics.setFont(fontPause)
     love.graphics.setColor(255, 255, 255)
-    love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 425, (love.graphics.getHeight() / 2) - 165, 850, 300)
-    love.graphics.setColor(0, 255, 255)
-    love.graphics.print("Game is PAUSED", (love.graphics.getWidth() / 2) - 215, 250)
-    love.graphics.setColor(255, 0, 255)
-    love.graphics.print("Press ENTER to resume playing", (love.graphics.getWidth() / 2) - 395, 350)
-    love.graphics.print("Press ESCAPE to EXIT", (love.graphics.getWidth() / 2) - 275, 450)
-    
-  end
   
+    love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 5, 0, 10, 800)
+  
+    love.graphics.print(scorePlayer1, (love.graphics.getWidth() / 2) - 250, 50)
+    love.graphics.print(scorePlayer2, (love.graphics.getWidth() / 2) + 150, 50)
+    
+    love.graphics.setColor(0, 0, 255)
+  
+    love.graphics.rectangle("fill", player1.x, player1.y, player1.width, player1.height)
+  
+    love.graphics.setColor(255, 0, 0)
+ 
+    love.graphics.rectangle("fill", player2.x, player2.y, player2.width, player2.height)
+  
+    love.graphics.setColor(0, 255, 0)
+ 
+    love.graphics.circle("fill", ball.x, ball.y, ball.radius)
+  
+    if gamePause then
+      love.graphics.setFont(fontPause)
+      love.graphics.setColor(255, 255, 255)
+      love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 425, (love.graphics.getHeight() / 2) - 165, 850, 300)
+      love.graphics.setColor(0, 255, 255)
+      love.graphics.print("Game is PAUSED", (love.graphics.getWidth() / 2) - 215, 250)
+      love.graphics.setColor(255, 0, 255)
+      love.graphics.print("Press ENTER to resume playing", (love.graphics.getWidth() / 2) - 395, 350)
+      love.graphics.print("Press ESCAPE to EXIT", (love.graphics.getWidth() / 2) - 275, 450)
+    end
+    
+    if gameWon then
+      love.graphics.setFont(fontPause)
+      love.graphics.setColor(255, 255, 255)
+      love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 325, (love.graphics.getHeight() / 2) - 65, 650, 200)
+      if scorePlayer1 == 1 then
+        love.graphics.setColor(0, 0, 255)
+        love.graphics.print("Player 1 WON", (love.graphics.getWidth() / 2) - 180, 350)
+      end
+      if scorePlayer2 == 1 then
+        love.graphics.setColor(255, 0, 0)
+        love.graphics.print("Player 2 WON", (love.graphics.getWidth() / 2) - 180, 350)
+      end
+      love.graphics.setColor(255, 0, 255)
+      love.graphics.print("Press ESCAPE to EXIT", (love.graphics.getWidth() / 2) - 275, 450)
+    end
+  end
 end
 
 function love.keypressed(key, scancode, isrepeat)
