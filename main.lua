@@ -3,7 +3,7 @@ function love.load()
   love.window.setTitle("PONGARDO LOVE EDITION")
   love.window.setMode(1600,800)
   
-  gameState = "playing"
+  gameState = {menu = false, playing = true, howTo= false}
   
   scorePlayer1 = 0
   scorePlayer2 = 0
@@ -25,7 +25,7 @@ function love.load()
 end
 
 function love.update(dt)
-  if gameState == "playing" then
+  if gameState then
     if not gamePause then
       playerMovement(player1, "w", "s")
       playerMovement(player2, "up", "down")
@@ -48,7 +48,7 @@ function love.update(dt)
 end
 
 function love.draw()
-  if gameState == "playing" then
+  if gameState then
     love.graphics.setFont(font)
   
     love.graphics.setColor(255, 255, 255)
