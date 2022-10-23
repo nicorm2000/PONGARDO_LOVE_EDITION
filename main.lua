@@ -85,11 +85,11 @@ function love.draw()
       love.graphics.setFont(fontPause)
       love.graphics.setColor(255, 255, 255)
       love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 325, (love.graphics.getHeight() / 2) - 65, 650, 200)
-      if scorePlayer1 == 1 then
+      if scorePlayer1 == 3 then
         love.graphics.setColor(0, 0, 255)
         love.graphics.print("Player 1 WON", (love.graphics.getWidth() / 2) - 180, 350)
       end
-      if scorePlayer2 == 1 then
+      if scorePlayer2 == 3 then
         love.graphics.setColor(255, 0, 0)
         love.graphics.print("Player 2 WON", (love.graphics.getWidth() / 2) - 180, 350)
       end
