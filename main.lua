@@ -67,11 +67,29 @@ function love.draw()
     
     love.graphics.print("Love2D edition", (love.graphics.getWidth() / 2) - 310, 200)
     
-    love.graphics.setFont(font)
+    love.graphics.setFont(fontPause)
     
     love.graphics.setColor(255, 255, 0)
     
-    love.graphics.print("The first player to get 3 points wins!", (love.graphics.getWidth() / 2) - 640, 350)
+    love.graphics.print("The first player to get 3 points wins!", (love.graphics.getWidth() / 2) - 500, 300)
+    
+    love.graphics.setColor(0, 0, 255)
+    
+    love.graphics.print("Control PLayer 1 with 'W' and 'S'", (love.graphics.getWidth() / 2) - 450, 400)
+    
+    love.graphics.setColor(255, 0, 0)
+    
+    love.graphics.print("Control PLayer 2 with 'UP' and 'DOWN' arrow", (love.graphics.getWidth() / 2) - 600, 500)
+    
+    love.graphics.setColor(0, 255, 0)
+    
+    love.graphics.print("Press 'ENTER' to pause the game", (love.graphics.getWidth() / 2) - 450, 600)
+    
+    love.graphics.setFont(font)
+    
+    love.graphics.setColor(0, 255, 255)
+    
+    love.graphics.print("Press 'SPACE' to start!", (love.graphics.getWidth() / 2) - 400, 700)
   end
   
   if gameState == "playing" then
@@ -100,7 +118,7 @@ function love.draw()
       love.graphics.setFont(fontPause)
       love.graphics.setColor(255, 255, 255)
       love.graphics.rectangle("fill", (love.graphics.getWidth() / 2) - 425, (love.graphics.getHeight() / 2) - 165, 850, 300)
-      love.graphics.setColor(0, 255, 255)
+      love.graphics.setColor(0, 0, 0)
       love.graphics.print("Game is PAUSED", (love.graphics.getWidth() / 2) - 215, 250)
       love.graphics.setColor(255, 0, 255)
       love.graphics.print("Press ENTER to resume playing", (love.graphics.getWidth() / 2) - 395, 350)
