@@ -3,7 +3,7 @@ function love.load()
   love.window.setTitle("PONGARDO LOVE EDITION")
   love.window.setMode(1600,800)
   
-  gameState = {menu = false, playing = true, howTo= false}
+  gameState = "menu"
   
   scorePlayer1 = 0
   scorePlayer2 = 0
@@ -11,6 +11,8 @@ function love.load()
   reset("P1")
   
   font = love.graphics.newFont(70)
+  
+  fontMenu = love.graphics.newFont(150)
   
   fontPause = love.graphics.newFont(50)
   
@@ -25,7 +27,7 @@ function love.load()
 end
 
 function love.update(dt)
-  if gameState then
+  if gameState == "playing" then
     if not gamePause then
       playerMovement(player1, "w", "s")
       playerMovement(player2, "up", "down")
@@ -48,7 +50,31 @@ function love.update(dt)
 end
 
 function love.draw()
-  if gameState then
+  if gameState == "menu" then
+    love.graphics.setFont(fontMenu)
+  
+    love.graphics.setColor(255, 0, 0)
+    
+    love.graphics.print("PONG", (love.graphics.getWidth() / 2) - 500, 30)
+    
+    love.graphics.setColor(0, 0, 255)
+    
+    love.graphics.print("ARDO", (love.graphics.getWidth() / 2), 30)
+    
+    love.graphics.setFont(font)
+    
+    love.graphics.setColor(255, 255, 255)
+    
+    love.graphics.print("Love2D edition", (love.graphics.getWidth() / 2) - 310, 200)
+    
+    love.graphics.setFont(font)
+    
+    love.graphics.setColor(255, 255, 0)
+    
+    love.graphics.print("The first player to get 3 points wins!", (love.graphics.getWidth() / 2) - 640, 350)
+  end
+  
+  if gameState == "playing" then
     love.graphics.setFont(font)
   
     love.graphics.setColor(255, 255, 255)
@@ -100,15 +126,20 @@ function love.draw()
 end
 
 function love.keypressed(key, scancode, isrepeat)
-  
-  if key == "return" then
-    gamePause = not gamePause
+  if gameState == "menu" then
+    if key == "space" then
+      gameState = "playing"
+    end
   end
-  
-  if key == "escape" then
-    love.event.quit()
+
+  if gameState == "playing" then
+    if key == "return" then
+      gamePause = not gamePause
+    end
+    if key == "escape" then
+      love.event.quit()
+    end
   end
-  
 end
 
 function playerMovement(player, upMovement, downMovement)
