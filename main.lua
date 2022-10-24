@@ -29,9 +29,9 @@ end
 function love.update(dt)
   if gameState == "playing" then
     if not gamePause then
-      playerMovement(player1, "w", "s")
-      playerMovement(player2, "up", "down")
-      ballMovement(ball)
+      playerMovement(player1, "w", "s", dt)
+      playerMovement(player2, "up", "down", dt)
+      ballMovement(ball, dt)
       if scorePlayer1 == 3 then
         player1.speed = 0
         player2.speed = 0
@@ -160,30 +160,30 @@ function love.keypressed(key, scancode, isrepeat)
   end
 end
 
-function playerMovement(player, upMovement, downMovement)
+function playerMovement(player, upMovement, downMovement, dt)
   
   if love.keyboard.isDown(upMovement) and player.y >= 0 then 
-    player.y = player.y - player.speed
+    player.y = player.y - player.speed * dt
   end
   
   if love.keyboard.isDown(downMovement) and (player.y + player.height) <= love.graphics.getHeight() then 
-    player.y = player.y + player.speed
+    player.y = player.y + player.speed * dt
   end
   
 end
 
-function ballMovement(ball)
+function ballMovement(ball, dt)
   
   if ball.right then
-    ball.x = ball.x + ball.speed
+    ball.x = ball.x + ball.speed * dt
   else
-    ball.x = ball.x - ball.speed
+    ball.x = ball.x - ball.speed * dt
   end
   
   if ball.up then
-    ball.y = ball.y - ball.speed
+    ball.y = ball.y - ball.speed * dt
   else
-    ball.y = ball.y + ball.speed
+    ball.y = ball.y + ball.speed * dt
   end
   
   if (ball.x) >= (player1.x) 
@@ -228,7 +228,7 @@ function ballMovement(ball)
   then
     love.audio.play(paddleSound)
     ball.right = true
-    ball.speed = ball.speed + 0.5
+    ball.speed = ball.speed + 50
   end
   
   if (ball.x + ball.radius) >= player2.x 
@@ -238,7 +238,7 @@ function ballMovement(ball)
   then
     love.audio.play(paddleSound)
     ball.right = false
-    ball.speed = ball.speed + 0.5
+    ball.speed = ball.speed + 50 
   end
   
   if (ball.x + ball.radius) >= love.graphics.getWidth() then
@@ -270,7 +270,7 @@ function reset(playerPoints)
   player1.y = 300
   player1.width = 50
   player1.height = 250
-  player1.speed = 2
+  player1.speed = 200
   
   
   player2 = {}
@@ -278,7 +278,7 @@ function reset(playerPoints)
   player2.y = 300
   player2.width = 50
   player2.height = 250
-  player2.speed = 2
+  player2.speed = 200
   
   ball = {}
   ball.x = love.graphics.getWidth() / 2
@@ -292,6 +292,6 @@ function reset(playerPoints)
   end
   
   ball.up = false
-  ball.speed = 2
+  ball.speed = 200
   
 end
